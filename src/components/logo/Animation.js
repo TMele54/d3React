@@ -65,7 +65,7 @@ class Animation extends React.Component {
 
             <React.Fragment>
                 <div id="DOM_ELEMENT" />
-                <button onClick={this.ReDraw} style={{height: "50px", width: "100px"}}>Redraw!</button>
+                <button onClick={this.ReDraw} style={{height: "50px", width: "100px"}}>GO!</button>
             </React.Fragment>
 
             )
