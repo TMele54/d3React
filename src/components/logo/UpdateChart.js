@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 import FormatFilter from "./FormatFilter";
-import {margin,width,height,x,y,xAxis,yAxis,valueline} from "./ChartDimensions";
+import {margin,width,height} from "./ChartDimensions";
 
 /*
 
@@ -24,7 +24,7 @@ const UpdateChart = (props) => {
 
     // The HTML element that we use as a foundation to draw (used here to access what was already drawn)
     const NODE = "#DOM_ELEMENT"
-
+    /*
     // Format and Filter data
     const data = FormatFilter(props.chartData)
 
@@ -55,7 +55,7 @@ const UpdateChart = (props) => {
     // Remove elements that are no longer being used
     dot.exit().remove();
 
-    /*
+
         In the past two comments we took initial data and joined it to new creating a superset.
         The data then says has more values then are in the newer dataset, so some circles arent used so we must remove them.
         Probably need a line in the event there are more data point instead of less.
