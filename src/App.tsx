@@ -5,7 +5,7 @@ import Visualization from "./components/example/Visualization.js"
 import Animation from "./components/logo/Animation.js"
 
 function App() {
-  if(true) {
+  if(false) {
     return (
         <Visualization/>
     );

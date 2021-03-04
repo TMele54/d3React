@@ -33,16 +33,15 @@ class Animation extends React.Component {
     ReDraw = () => {
         // The following makes random data and then redraws
         const getDaysArray = function(s,e) {for(var a=[],d=new Date(s);d<=e;d.setDate(d.getDate()+1)){ a.push(new Date(d));}return a;};
-        const daylist = getDaysArray(new Date("2020-01-01"),new Date("2020-02-15"));
+        const daylist = getDaysArray(new Date("2020-01-01"),new Date("2020-"+(Math.floor(Math.random() * 12) + 2).toString()+"-01"));
         function formatDate(date) {
             if (date !== undefined && date !== "") {
               let myDate = new Date(date);
               let month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",][myDate.getMonth()];
               let day = myDate.getDate();
               let yr = myDate.getFullYear().toString().substr(-2);
-              let str = day + "-" + month + "-" + yr;
 
-              return str;
+              return day + "-" + month + "-" + yr;
             }
             return "";
         }
