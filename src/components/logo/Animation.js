@@ -2,38 +2,42 @@ import React from "react";
 import DrawChart from "./DrawChart"
 import UpdateChart from "./UpdateChart";
 
+/*
+
+This is the main drawing component.
+
+Importing:
+    React
+    DrawChart
+    UpdateChart
+
+Here we pull in data, draw charts and redraw charts.
+This is where D3 meets the React world big picture wise.
+
+*/
+
 class Animation extends React.Component {
+
     constructor(props) {
         super(props);
         this.ReDraw = this.ReDraw.bind(this)
     }
 
     async componentDidMount() {
+        // First draw is based on json data, subsequent redraws are generated at random
         await fetch('data/data.json').then(response => response.json()).then(data => {
             DrawChart({chartData: data})
         });
     }
 
     ReDraw = () => {
+        // The following makes random data and then redraws
         const getDaysArray = function(s,e) {for(var a=[],d=new Date(s);d<=e;d.setDate(d.getDate()+1)){ a.push(new Date(d));}return a;};
-        const daylist = getDaysArray(new Date("2020-01-01"),new Date("2020-01-15"));
+        const daylist = getDaysArray(new Date("2020-01-01"),new Date("2020-02-15"));
         function formatDate(date) {
             if (date !== undefined && date !== "") {
               let myDate = new Date(date);
-              let month = [
-                "Jan",
-                "Feb",
-                "Mar",
-                "Apr",
-                "May",
-                "Jun",
-                "Jul",
-                "Aug",
-                "Sep",
-                "Oct",
-                "Nov",
-                "Dec",
-              ][myDate.getMonth()];
+              let month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",][myDate.getMonth()];
               let day = myDate.getDate();
               let yr = myDate.getFullYear().toString().substr(-2);
               let str = day + "-" + month + "-" + yr;
@@ -67,5 +71,7 @@ class Animation extends React.Component {
 
             )
     }
+
 }
+
 export default Animation;

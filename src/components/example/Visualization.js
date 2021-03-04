@@ -24,12 +24,14 @@ class Visualization extends React.Component {
     }
 
     async componentDidMount() {
+        // First draw is based on json data, subsequent redraws are generated at random
         await fetch('data/data.json').then(response => response.json()).then(data => {
             DrawChart({chartData: data})
         });
     }
 
     ReDraw = () => {
+        // The following makes random data and then redraws
         const getDaysArray = function(s,e) {for(var a=[],d=new Date(s);d<=e;d.setDate(d.getDate()+1)){ a.push(new Date(d));}return a;};
         const daylist = getDaysArray(new Date("2020-01-01"),new Date("2020-02-15"));
         function formatDate(date) {
