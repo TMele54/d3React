@@ -4,13 +4,13 @@ import './App.css';
 import Visualization from "./components/example/Visualization.js"
 import Animation from "./components/logo/Animation.js"
 
-
 function App() {
   if(true) {
     return (
         <Visualization/>
     );
-  }else{
+  }
+  else{
     return (
         <Animation />
     )

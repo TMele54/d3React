@@ -31,7 +31,7 @@ class Visualization extends React.Component {
 
     ReDraw = () => {
         const getDaysArray = function(s,e) {for(var a=[],d=new Date(s);d<=e;d.setDate(d.getDate()+1)){ a.push(new Date(d));}return a;};
-        const daylist = getDaysArray(new Date("2020-01-01"),new Date("2020-01-15"));
+        const daylist = getDaysArray(new Date("2020-01-01"),new Date("2020-02-15"));
         function formatDate(date) {
             if (date !== undefined && date !== "") {
               let myDate = new Date(date);
@@ -84,4 +84,5 @@ class Visualization extends React.Component {
     }
 
 }
+
 export default Visualization;
