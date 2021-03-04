@@ -13,4 +13,4 @@ let yAxis = d3.svg.axis().scale(y).orient("left").ticks(5);
 
 let valueline = d3.svg.line().x(function(d) { return x(d.date); }).y(function(d) { return y(d.close); });
 
-export {margin,width,height,x,y,xAxis,yAxis,valueline}
+export {margin,width,height,x,y,xAxis,yAxis,valueline};

@@ -2,7 +2,22 @@ import React from "react";
 import DrawChart from "./DrawChart"
 import UpdateChart from "./UpdateChart";
 
+/*
+
+This is the main drawing component.
+
+Importing:
+    React
+    DrawChart
+    UpdateChart
+
+Here we pull in data, draw charts and redraw charts.
+This is where D3 meets the React world big picture wise.
+
+*/
+
 class Visualization extends React.Component {
+
     constructor(props) {
         super(props);
         this.ReDraw = this.ReDraw.bind(this)
@@ -59,6 +74,7 @@ class Visualization extends React.Component {
 
     render() {
         return(
+
             <React.Fragment>
                 <div id="DOM_ELEMENT" />
                 <button onClick={this.ReDraw} style={{height: "50px", width: "100px"}}>Redraw!</button>
@@ -66,5 +82,6 @@ class Visualization extends React.Component {
 
             )
     }
+
 }
 export default Visualization;

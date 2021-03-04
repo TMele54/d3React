@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 
-const FormatFilter = (data) => {
+const FormatFilter = (data, options) => {
     let parseDate = d3.time.format("%d-%b-%y").parse;
 
     data.forEach(function(d) {
@@ -11,4 +11,5 @@ const FormatFilter = (data) => {
     return data
 
 }
+
 export default FormatFilter

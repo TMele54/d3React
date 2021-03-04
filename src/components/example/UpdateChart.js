@@ -2,6 +2,19 @@ import * as d3 from 'd3';
 import FormatFilter from "./FormatFilter";
 import {margin,width,height,x,y,xAxis,yAxis,valueline} from "./ChartDimensions";
 
+/*
+
+This is the second drawing component, it is used to update the chart with new or filtered data.
+
+Importing:
+    D3, Version 3.
+    A FormatFilter Component which is used to take data and prepare it for visualization
+    Shared elements in ChartDimensions (needed for updating a visual)
+
+Chart Dimensions shared by DrawChart and UpdateChart are used here to update data points in the chart
+
+*/
+
 const UpdateChart = (props) => {
     const duration = 2000
     const delay = 500

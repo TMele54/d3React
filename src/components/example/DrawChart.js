@@ -2,6 +2,19 @@ import * as d3 from 'd3';
 import FormatFilter from "./FormatFilter";
 import {margin,width,height,x,y,xAxis,yAxis,valueline} from "./ChartDimensions";
 
+/*
+
+This is the main drawing component.
+
+Importing:
+    D3, Version 3.
+    A FormatFilter Component which is used to take data and prepare it for visualization
+    Shared elements in ChartDimensions (needed for updating a visual)
+
+This is simply where we draw shapes composed by data.
+
+*/
+
 const DrawChart = (props) => {
     const NODE = "#DOM_ELEMENT"
     const data = FormatFilter(props.chartData)

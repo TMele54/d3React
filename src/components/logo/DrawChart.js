@@ -4,7 +4,7 @@ import {margin,width,height,x,y,xAxis,yAxis,valueline} from "./ChartDimensions";
 
 const DrawChart = (props) => {
     const NODE = "#DOM_ELEMENT"
-    const data = FormatFilter(props.chartData)
+    const data = FormatFilter(props.chartData, [])
 
     let svg = d3.select(NODE)
                     .append("svg")

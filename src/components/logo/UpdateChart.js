@@ -6,7 +6,7 @@ const UpdateChart = (props) => {
     const duration = 2000
     const delay = 500
     const NODE = "#DOM_ELEMENT"
-    const data = FormatFilter(props.chartData)
+    const data = FormatFilter(props.chartData, [])
 
     x.domain(d3.extent(data, function(d) { return d.date; }));
     y.domain([0, d3.max(data, function(d) { return d.close; })]);
@@ -20,7 +20,8 @@ const UpdateChart = (props) => {
 
     // udpate
     dot.transition().duration(duration).delay(delay)
-        .attr("class", "point").attr("r", 3.5)   .attr("cx", function(d) { return x(d.date); })
+        .attr("class", "point").attr("r", 3.5)
+        .attr("cx", function(d) { return x(d.date); })
         .attr("cy", function(d) { return y(d.close); });
 
     dot.exit().remove();

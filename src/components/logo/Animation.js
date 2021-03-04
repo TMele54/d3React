@@ -2,7 +2,7 @@ import React from "react";
 import DrawChart from "./DrawChart"
 import UpdateChart from "./UpdateChart";
 
-class Visualization extends React.Component {
+class Animation extends React.Component {
     constructor(props) {
         super(props);
         this.ReDraw = this.ReDraw.bind(this)
@@ -59,6 +59,7 @@ class Visualization extends React.Component {
 
     render() {
         return(
+
             <React.Fragment>
                 <div id="DOM_ELEMENT" />
                 <button onClick={this.ReDraw} style={{height: "50px", width: "100px"}}>Redraw!</button>
@@ -67,4 +68,4 @@ class Visualization extends React.Component {
             )
     }
 }
-export default Visualization;
+export default Animation;

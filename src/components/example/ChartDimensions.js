@@ -1,6 +1,21 @@
 import React from 'react';
 import * as d3 from 'd3';
 
+
+/*
+
+This is the dimensions component.
+
+Importing:
+    D3, Version 3.
+    React
+
+This is where we set the dimensions like Height and Width.
+Also provides a place for callbacks that are used in multiple components.
+
+*/
+
+
 const margin = {top: 30, right: 20, bottom: 30, left: 50}
 const width = 600 - margin.left - margin.right;
 const height = 270 - margin.top - margin.bottom;
