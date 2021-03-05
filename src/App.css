@@ -1,19 +1,10 @@
-/* Chart */
+/* Logo */
 
-body { font: 12px SansSerif;}
-
-path {
-    stroke: steelblue;
-    stroke-width: 2;
-    fill: none;
+.svg-component {
+    background-color: black;
 }
-
-.axis path,
-.axis line {
-    fill: none;
-    stroke: grey;
-    stroke-width: 1;
-    shape-rendering: crispEdges;
+body {
+    background-color: black;
 }
 
 /* App */

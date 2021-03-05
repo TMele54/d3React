@@ -11,30 +11,31 @@ const DrawChart = (props) => {
 
     const svgContainer = d3.select(NODE)
                                 .append("svg")
-                                    .attr("width",width)
-                                    .attr("height",height)
-                                  .append("g")
-                                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-
+                                .attr("width", width).attr("height", height)
+                                .attr("class", "svg-component")
+                                .append("g")
+                                .attr("class", "_svg-component")
+                                //.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     const svgEllipses = svgContainer
-                    .selectAll("ellipse")
-                    .data(ellipses)
-                    .enter()
-                    .append("ellipse")
-                    .attr("stroke", (d) => {return d.stroke})
-                    .attr("stroke-width", 30)
-                    .attr("fill", (d) => {return d.fill})
-                    .attr("transform", (d) => {return "rotate("+d.theta+" "+d.cx+" "+d.cy+")"})
-
-    	.attr("cx", (d,i) => { return d.cx; })
-    	.attr("cy", (d,i) => { return d.cy; })
-    	.attr("rx", (d,i) => { return d.rx; })
-    	.attr("ry", (d,i) => { return d.ry; });
+                                .selectAll("ellipse")
+                                .data(ellipses)
+                                .enter()
+                                .append("ellipse")
+                                .attr("id", (d) => {return d.name})
+                                .attr("class", "ellipses")
+                                .attr("stroke", (d) => {return d.stroke})
+                                .attr("stroke-width", 15)
+                                .attr("fill", (d) => {return d.fill})
+                                .attr("transform", (d) => {return "rotate("+d.theta+" "+d.cx+" "+d.cy+")"})
+                                .attr("cx", (d,i) => { return d.cx; })
+                                .attr("cy", (d,i) => { return d.cy; })
+                                .attr("rx", (d,i) => { return d.rx; })
+                                .attr("ry", (d,i) => { return d.ry; });
 
 
     svgEllipses.filter(':first-child');
+
 }
 
 export default DrawChart
