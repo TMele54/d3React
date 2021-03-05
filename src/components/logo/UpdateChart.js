@@ -32,18 +32,71 @@ const UpdateChart = (props) => {
                 ]
 
     const svg = d3.select(".svg-component")
-    const line = d3.svg.diagonal().radial();
-    const lineData = {source:{x:25, y:25},target:{x:25, y:25}};
-    const path = svg.append("path").attr("d", line(lineData)).style("stroke",  "white").style("fill", "none");
 
-    function pathTween(path){
-        var length = path.node().getTotalLength();
-        var r = d3.interpolate(0, length);
-        return function(t){
-            var point = path.node().getPointAtLength(r(t));
-            d3.select(this).attr("cx", point.x).attr("cy", point.y);
+    function renderOne(innerRadius) {
+
+        let dbl = innerRadius * 2;
+        let width = 200
+        let viewbox = `0 0 ${dbl} ${dbl}`
+        let height = 200
+        let colors = d3.scale.category20();
+
+        let svg = d3.select("#DOM_ELEMENT").append("svg")
+            .attr("width", width)
+            .attr('viewBox', viewbox);
+
+        var dataArc = [
+            {startAngle: -1 * Math.PI, endAngle: 1 * Math.PI},
+        ];
+        var arc = d3.svg.arc().outerRadius(innerRadius+10).innerRadius(innerRadius);
+        svg.select("g").remove();
+        var path = svg.append("g").selectAll("path.arc").data(dataArc);
+
+        path.enter()
+            .append("path")
+            .attr("transform", `translate(${innerRadius},${innerRadius})`) //625,625
+            .attr("class", "arc")
+            .style("stroke", "rgb(53,154,204))")
+            .style("stroke-width", 5)
+            .style("fill", "white") //"none"
+            .style("opacity", .7)
+            .attr('d', arc)
+            .transition().delay(250).duration(2000).ease("linear")
+            .attrTween("d", function (d) {
+                  var start = {startAngle: -1 * Math.PI, endAngle: -1 * Math.PI}
+                  var end = d
+                  var interpolate = d3.interpolate(start, end);
+                  return function (t) {
+                      return arc(interpolate(t));
+                  };
+              })
+
+        path.enter()
+          .append('circle')
+            .attr("transform", `translate(${innerRadius},${innerRadius})`)
+            .attr('r', 20)
+            .attr('fill', 'white')
+            .transition()
+            .delay(250)
+            .duration(2000)
+            .ease("linear")
+            .attrTween("pathTween", function (d) {
+                const startAngle = d.startAngle;
+                const endAngle = d.endAngle;
+                const start = {startAngle, endAngle: startAngle}
+                const end = {startAngle: endAngle, endAngle}
+                const interpolate = d3.interpolate(start, end);
+                const circ = d3.select(this)
+                return function (t) {
+                    const cent = arc.centroid(interpolate(t));
+                    circ
+                      .attr("cx", cent[0]) // Set the cx
+                      .attr("cy", cent[1]) // Set the cy
+                };
+            })
         }
-    }
+
+    renderOne(750);
 
     // Transform into 4 equal sized balls overlapped so it it appears to be one ball
     const OneBall = (Z)=> {
@@ -89,8 +142,6 @@ const UpdateChart = (props) => {
                         .delay(250)
                         .duration(1000)
                         .ease("linear")
-                        .tween("pathTween", function(){return pathTween(path)})// .tween("pathTween", pathTween); //Custom tween to set the cx and cy attributes
-
                         .each("end", JustDanceTwo)
 
             console.log("End JustDance")
