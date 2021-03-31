@@ -1,23 +1,9 @@
 import React from "react";
-import $ from "jquery"
 import DrawChart from "./DrawChart"
 import UpdateChart from "./UpdateChart";
 
-/*
 
-This is the main drawing component.
-
-Importing:
-    React
-    DrawChart
-    UpdateChart
-
-Here we pull in data, draw charts and redraw charts.
-This is where D3 meets the React world big picture wise.
-
-*/
-
-class Animation extends React.Component {
+class Visualization extends React.Component {
 
     constructor(props) {
         super(props);
@@ -32,21 +18,31 @@ class Animation extends React.Component {
     }
 
     ReDraw = () => {
-
-        // Remove Button
-        $("#myButton").css("visibility", "hidden")
-
         // The following makes random data and then redraws
         const getDaysArray = function(s,e) {for(var a=[],d=new Date(s);d<=e;d.setDate(d.getDate()+1)){ a.push(new Date(d));}return a;};
-        const daylist = getDaysArray(new Date("2020-01-01"),new Date("2020-"+(Math.floor(Math.random() * 12) + 2).toString()+"-01"));
+        const daylist = getDaysArray(new Date("2020-01-01"),new Date("2020-02-15"));
         function formatDate(date) {
             if (date !== undefined && date !== "") {
               let myDate = new Date(date);
-              let month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",][myDate.getMonth()];
+              let month = [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec",
+              ][myDate.getMonth()];
               let day = myDate.getDate();
               let yr = myDate.getFullYear().toString().substr(-2);
+              let str = day + "-" + month + "-" + yr;
 
-              return day + "-" + month + "-" + yr;
+              return str;
             }
             return "";
         }
@@ -69,12 +65,8 @@ class Animation extends React.Component {
         return(
 
             <React.Fragment>
-                <div className={"parent"}>
-                    <div id="DOM_ELEMENT" className={"child"}/>
-                </div>
-                <div className={"parent"}>
-                    <button id={"myButton"}  className={"child"} onClick={this.ReDraw} style={{height: "25px", width: "350px"}}>GO!</button>
-                </div>
+                <div id="DOM_ELEMENT" />
+                <button onClick={this.ReDraw} style={{height: "50px", width: "100px"}}>Redraw!</button>
             </React.Fragment>
 
             )
@@ -82,4 +74,4 @@ class Animation extends React.Component {
 
 }
 
-export default Animation;
+export default Visualization;
