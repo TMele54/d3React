@@ -1,63 +1,58 @@
 import React, { Component } from 'react';
 import $ from "jquery"
 import { render } from 'react-dom';
-import { Stage, Layer, Rect, Text, ColoredRect,Image } from 'react-konva';
+import { Stage, Layer, Rect, Text, Image } from 'react-konva';
 import Konva from 'konva';
 import useImage from 'use-image';
 
-
-class URLImage extends React.Component {
-  state = {
-    image: null
-  };
-  componentDidMount() {
-    this.loadImage();
-  }
-  componentDidUpdate(oldProps) {
-    if (oldProps.src !== this.props.src) {
-      this.loadImage();
-    }
-  }
-  componentWillUnmount() {
-    this.image.removeEventListener('load', this.handleLoad);
-  }
-  loadImage() {
-    // save to "this" to remove "load" handler on unmount
-    this.image = new window.Image();
-    this.image.src = this.props.src;
-    this.image.addEventListener('load', this.handleLoad);
-  }
-  handleLoad = () => {
-    // after setState react-konva will update canvas and redraw the layer
-    // because "image" property is changed
-    this.setState({
-      image: this.image
-    });
-    // if you keep same image object during source updates
-    // you will have to update layer manually:
-    // this.imageNode.getLayer().batchDraw();
-  };
-  render() {
-    return (
-      <Image
-        x={this.props.x}
-        y={this.props.y}
-        image={this.state.image}
-        ref={node => {
-          this.imageNode = node;
-        }}
-      />
-    );
-  }
-}
-
+const PieceImage = (d) => {
+  const [image] = useImage(d.pth);
+  return <Image image={image} height={80} width={80} x={6} y={5}/>;
+};
 class Chess extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            white: "",
-            black: ""
+            white: [
+                {"svg": "wp.svg", "pos": "a2"},
+                {"svg": "wp.svg", "pos": "b2"},
+                {"svg": "wp.svg", "pos": "c2"},
+                {"svg": "wp.svg", "pos": "d2"},
+                {"svg": "wp.svg", "pos": "e2"},
+                {"svg": "wp.svg", "pos": "f2"},
+                {"svg": "wp.svg", "pos": "g2"},
+                {"svg": "wp.svg", "pos": "h2"},
+                {"svg": "wr.svg", "pos": "a1"},
+                {"svg": "wr.svg", "pos": "h1"},
+                {"svg": "wk.svg", "pos": "b1"},
+                {"svg": "wk.svg", "pos": "g1"},
+                {"svg": "wb.svg", "pos": "c1"},
+                {"svg": "wb.svg", "pos": "f1"},
+                {"svg": "wn.svg", "pos": "d1"},
+                {"svg": "wq.svg", "pos": "e1"}
+                ],
+            black: [
+                {"svg": "bp.svg", "pos": "a7"},
+                {"svg": "bp.svg", "pos": "b7"},
+                {"svg": "bp.svg", "pos": "c7"},
+                {"svg": "bp.svg", "pos": "d7"},
+                {"svg": "bp.svg", "pos": "e7"},
+                {"svg": "bp.svg", "pos": "f7"},
+                {"svg": "bp.svg", "pos": "g7"},
+                {"svg": "bp.svg", "pos": "h7"},
+                {"svg": "br.svg", "pos": "a8"},
+                {"svg": "br.svg", "pos": "h8"},
+                {"svg": "bk.svg", "pos": "b8"},
+                {"svg": "bk.svg", "pos": "g8"},
+                {"svg": "bb.svg", "pos": "c8"},
+                {"svg": "bb.svg", "pos": "f8"},
+                {"svg": "bn.svg", "pos": "d8"},
+                {"svg": "bq.svg", "pos": "e8"}
+                ],
+            positions: [
+                {},
+            ]
         }
         const rules = `
     Kings move one square in any direction, so long as that square is not attacked by an enemy piece. Additionally, kings are able to make a special move, know as castling.
@@ -84,20 +79,17 @@ class Chess extends React.Component {
 
     };
 
-
     render() {
-         const LionImage = () => {
-          const [image] = useImage('https://konvajs.org/assets/lion.png');
-          return <Image image={image} />;
-        };
         const Board = () => {
 
         const n = 8;
         const squareSize = 75;
         const boardTopx = 10;
         const boardTopy = 10;
-        const boardHeight = boardTopy+squareSize*8
-        const boardWidth = boardTopx+squareSize*8
+        const boardHeight = boardTopy+squareSize*8+10;
+        const boardWidth = boardTopx+squareSize*8+10;
+        const A = "#D18B47";
+        const B = "#FFCE9E";
 
         const alpha = ['h', 'g', 'f', 'e', 'd', 'c', 'b', 'a']
         const numeric = ["1", "2", "3", "4", "5", "6", "7", "8"]
@@ -115,18 +107,20 @@ class Chess extends React.Component {
                             <React.Fragment>
                                 {row.reverse().map((cell, j) => {
                                     return(
-                                        <Rect
-                                            key={i.toString()+j.toString()}
-                                            name={cell}
-                                            x={boardTopx+squareSize*i}
-                                            y={boardTopy+squareSize*j}
-                                            width={squareSize}
-                                            height={squareSize}
-                                            fill={ j % 2 !== 0 ?  i % 2 !== 0 ? "white" : "black" : i % 2 === 0 ? "white" : "black"}
-                                            shadowBlur={2}
-                                            onClick={this.handleClick}
-                                        />
-
+                                        <React.Fragment>
+                                            <Rect
+                                                key={i.toString()+j.toString()}
+                                                name={cell}
+                                                x={boardTopx+squareSize*i}
+                                                y={boardTopy+squareSize*j}
+                                                width={squareSize}
+                                                height={squareSize}
+                                                fill={ j % 2 !== 0 ?  i % 2 !== 0 ? A : B : i % 2 === 0 ? A : B}
+                                                shadowBlur={2}
+                                                onClick={this.handleClick}
+                                            />
+                                            <Text text={cell} fontSize={15} x={boardTopx+squareSize*i} y={boardTopy+squareSize*j} />
+                                        </React.Fragment>
                                     )
                                 })}
                             </React.Fragment>
@@ -137,17 +131,8 @@ class Chess extends React.Component {
                             <React.Fragment>
                                 {row.reverse().map((cell, j) => {
                                     return(
-                                           <Image
-                                                x={boardTopx+squareSize*i}
-                                                y={boardTopy+squareSize*j}
-                                                image={"./pieces/bb.svg"}
-                                                ref={node => {
-                                                    console.log(node)
-                                                  this.imageNode = node;
-                                                }}
-                                              />
-
-                                    )
+                                        <PieceImage pth={'./pieces/bb.svg'} />
+                                     )
                                 })}
                             </React.Fragment>
                         ))}
@@ -167,7 +152,6 @@ class Chess extends React.Component {
         return(
             <React.Fragment>
                 <Board />
-                <LionImage />
             </React.Fragment>
         )
     }
