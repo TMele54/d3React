@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import $ from "jquery"
-import { render } from 'react-dom';
 import { Stage, Layer, Rect, Text, Image } from 'react-konva';
-import Konva from 'konva';
 import useImage from 'use-image';
+import $ from "jquery";
 
 const Material = (d) => {
 
